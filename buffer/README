@@ -1,0 +1,6 @@
+This directory is intended for storing files and directories that airfoilFoam will need to run the job.
+
+The initial purpose of this directory is to store all the manually generated meshes
+for the morphing LE.
+
+Usage explanation pending, I will write it when this part of airfoiFoam is tested and run successfully

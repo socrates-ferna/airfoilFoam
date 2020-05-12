@@ -1,13 +1,13 @@
 #!/bin/bash
-# Change current project if needed
-export CURRENT_PROJECT=$SOCRATES/morphing_2D_ALED
+# This is your configuration file.
+export CURRENT_PROJECT=$SOCRATES/morphing_2D_ALED    #your route to the project
 export AIRFOILAPPDIR=$(pwd)
 export THIRDPARTY_DIR=$AIRFOILAPPDIR/ThirdParty
-FOIL_BASENAME=Def_
+FOIL_BASENAME=Def_    #This is the base name to all the foil configurations. In our case morphing LE positions
+
 #We export environment variables to move easily across directories
 
 export TOOLS_DIR=$AIRFOILAPPDIR/herramientas_actuales
 export GMSH_BIN_DIR=$THIRDPARTY_DIR/gmsh-3.0.0-Linux/bin/
 export AIRFOIL_FILES=$CURRENT_PROJECT/airfoil_files
-
-
+export BUFFER=$AIRFOILAPPDIR/buffer

@@ -1,2 +1,3 @@
-ThirdParty/gmsh-3.0.0-Linux/
+ThirdParty/gmsh-3.0.0-Linux/bin/
+ThirdParty/gmsh-3.0.0-Linux/share/
 **/polyMesh

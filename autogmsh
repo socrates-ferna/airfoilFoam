@@ -5,28 +5,16 @@ for i in $morphing_positions;do
 	sleep 5
 	pkill gmsh
 done
-
-cp $FOIL_BASENAME*.msh $CURRENT_PROJECT
-
-#a partir de aquí el programa está separado de Gmsh
+mv $FOIL_BASENAME*.msh $CURRENT_PROJECT
 cd $CURRENT_PROJECT
 
-#aquí vendría bien una limpieza o algo para chequear cómo está la carpeta
-#mejor cambiar la ubicación del caso _gen, o hacerla flexible
-#¿cómo? preguntando si generic o userdefined lo buscamos en un sitio u otro
-mkdir $morphing_positions
-parallel cp -r $AIRFOILAPPDIR/caso_gen ::: $morphing_positions
-
-source /opt/OpenFOAM-7/etc/bashrc
-
-#aquí hay que hacer un if que me diga si estoy en gmsh
-#si ya tengo la malla hago un bucle sin el gmshtofoam
 for i in $morphing_positions;do
 	mv $FOIL_BASENAME${i}.msh $i/caso_gen/
 	cd $i/caso_gen/
 	gmshToFoam $FOIL_BASENAME${i}.msh > "log.gmshToFoam_$FOIL_BASENAME${i}"
 #	cp boundary_corrected constant/polyMesh/boundary THIS LINE CREATES CONFLICT IF YOU CHANGE THE MESH SETUP (e.g y+) bc of faces labeling
 	cd constant/polyMesh/
+	#WARNING: THESE LINES ARE EXTREMELY CASE SPECIFIC. YOU NEED TO CHECK THE BOUNDARY FILE AND MODIFY THE SED CMDs
 	sed -i '/physicalType    patch/d' boundary #physicaltype lines
 	sed -i '/type            patch;/d' boundary
 	sed -i '21 a ,        type            empty;' boundary
@@ -36,11 +24,7 @@ for i in $morphing_positions;do
 	sed -i 's/,//g' boundary
 	cd ../../	
 	checkMesh > "log.checkMesh_$FOIL_BASENAME${i}"
-#	renumberMesh -overwrite > "log.renumberMesh_$FOIL_BASENAME${i}" SE CARGA EL $INTERNALFIELD EN EL FARFIELD. LO CORRO DESPUÉS DE DECOMPOSEPAR
+#	renumberMesh -overwrite > "log.renumberMesh_$FOIL_BASENAME${i}" It spoiled the $internalField substitution in 0/. This command is run in run_anglerange
 	rm $FOIL_BASENAME${i}.msh
 	cd ../../
 done
-
-echo "##################################"
-echo "AIRFOIL SIMULATIONS PREPARATION DONE"
-cd $AIRFOILAPPDIR

@@ -1,0 +1,23 @@
+#!/bin/bash
+#This file creates the parametric variation directories, creating if necessary and delivering the grids to each case
+cd $CURRENT_PROJECT
+mkdir $morphing_positions
+parallel cp -r $AIRFOILAPPDIR/caso_gen ::: $morphing_positions
+source /opt/OpenFOAM-7/etc/bashrc
+cd $AIRFOILAPPDIR
+
+#mesh generation and delivery according to chosen method
+if [ "$method" == "auto" ];do
+	source autogmsh
+fi
+
+if [ "$method" == "manual" ];do
+	cd $BUFFER
+	for i in $morphing_positions;do
+		cp -r $FOIL_BASENAME${i}/ $CURRENT_PROJECT/$i/caso_gen/constant/polyMesh
+	done
+	#try to do this with a subshell echoing the directory list, maybe parallel will accept the output
+fi
+echo "##################################"
+echo "PARAMETRIC CASES CREATED. GRIDS ARE DELIVERED"
+cd $AIRFOILAPPDIR

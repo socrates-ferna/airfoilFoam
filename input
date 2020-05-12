@@ -1,16 +1,34 @@
 #!/bin/bash
 #Skip this during usage if you are only preparing the cases up to mesh generation
+
+
+# Angle of attack range
 echo "Type angle range with the following format:"
 echo "first,last+1 or first,last,step"
 read anglerange
 echo "you introduced the following: $anglerange"
 
-echo "Now introduce the same range in bash format (sorry, code to transform it"
+echo "Now introduce the same range in bash format (sorry, code to transform it not written yet"
 echo "The format is: first last or first step last"
 read bashrange
 
-#morphing positions defined here
-echo Please specify the morphing positions with numbers separated by spaces
+
+#Parameter positions or variations here. 
+#It is named morphing positions for the moment bc of the original purpose of the code
+echo Please specify the parameter variations: two digits or characters per variation, separated by spaces
 read morphing_positions
 echo "You passed the following list : $morphing_positions"
 
+
+#Run configuration
+echo "Specify the mesh generation method"
+echo "manual: the meshes will be taken from the buffer dir"
+echo "Manual mesh directory naming format is $FOIL_BASENAME{dd} where dd is the position or parameter variation id"
+echo "auto: Gmsh generated meshes, necessary .csv files will be gathered from $AIRFOIL_FILES"
+while read method; do
+	case "$method" in
+		"auto") printf "You chose auto mode \n"; break;;
+		"manual") printf "You chose manual mode \n"; break;;
+		*) echo "You didn't type a supported method. Try again:";;
+	esac
+done
