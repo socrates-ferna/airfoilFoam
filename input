@@ -21,7 +21,7 @@ echo "You passed the following list : $morphing_positions"
 
 
 #Run configuration
-echo "Specify the mesh generation method"
+echo "Specify the mesh generation method (manual/auto)"
 echo "manual: the meshes will be taken from the buffer dir"
 echo "Manual mesh directory naming format is $FOIL_BASENAME{dd} where dd is the position or parameter variation id"
 echo "auto: Gmsh generated meshes, necessary .csv files will be gathered from $AIRFOIL_FILES"

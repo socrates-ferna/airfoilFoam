@@ -3,7 +3,7 @@
 export CURRENT_PROJECT=$SOCRATES/morphing_2D_ALED    #your route to the project
 export AIRFOILAPPDIR=$(pwd)
 export THIRDPARTY_DIR=$AIRFOILAPPDIR/ThirdParty
-FOIL_BASENAME=Def_    #This is the base name to all the foil configurations. In our case morphing LE positions
+export FOIL_BASENAME=Def_    #This is the base name to all the foil configurations. In our case morphing LE positions
 
 #We export environment variables to move easily across directories
 

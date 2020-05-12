@@ -1,7 +1,6 @@
 #!/bin/bash
 . processinit
 . input
-. geogenerator
-. meshgenerator
+. casegenerator
 . setup
 . run
