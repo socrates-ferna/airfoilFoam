@@ -1,0 +1,41 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX-OS                                                  |
+|   o   O   o      | Version: v2.4.0                                           |
+|    o     o       | Web:     http://www.engys.com                            |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class dictionary;
+    location constant;
+    object turbulenceProperties;
+}
+
+    simulationType RAS;
+    RAS
+    {
+        RASModel SpalartAllmaras;
+        turbulence on;
+        printCoeffs on;
+        SpalartAllmarasCoeffs
+        {
+            label "Spalart-Allmaras";
+            fieldMaps
+            {
+                nuTilda nuTilda;
+                nut nut;
+            }
+
+            alphaNut 1.5;
+            Cb1 0.1355;
+            Cb2 0.622;
+            Cw2 0.3;
+            Cw3 2;
+            Cv1 7.1;
+            Cv2 5.0;
+        }
+
+    }

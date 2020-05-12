@@ -1,0 +1,18 @@
+
+CAMBIOS PREPARADOR.PY
+=====================
+velocidad=11.1 paper blowing 0018
+
+Impresión del Lift Direction y Drag Direction cambia. El plano es ahora el XZ.
+antes liftDir de alfa=0 (0 1 0) y ahora es (0 0 1)
+antes dragDir de alfa=0 (1 0 0) y ahora es (1 0 0)
+se mantiene cero la Y, cambian la X y la Z
+Cambiado también la ordenación de los ejes de internalField y esas tres líneas
+
+CAMBIOS DOTGEOGENERATOR.PY
+==========================
+y+30 adim morphing: 0.00008066009333146975
+
+CAMBIOS SETUP
+=============
+Cuidado con el copia pega de los casos generales, está puesto para que vaya cambiando el nombre de la carpeta que busca

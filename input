@@ -1,0 +1,16 @@
+#!/bin/bash
+#Skip this during usage if you are only preparing the cases up to mesh generation
+echo "Type angle range with the following format:"
+echo "first,last+1 or first,last,step"
+read anglerange
+echo "you introduced the following: $anglerange"
+
+echo "Now introduce the same range in bash format (sorry, code to transform it"
+echo "The format is: first last or first step last"
+read bashrange
+
+#morphing positions defined here
+echo Please specify the morphing positions with numbers separated by spaces
+read morphing_positions
+echo "You passed the following list : $morphing_positions"
+

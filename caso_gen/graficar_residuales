@@ -1,0 +1,7 @@
+rango1=$(seq 0 10)
+rango2=$(seq 11 24)
+for i in $rango1 $rango2;do
+	foamMonitor -l -i 1 -t $i resultados/residuals/residuals_$i.dat &
+done
+
+

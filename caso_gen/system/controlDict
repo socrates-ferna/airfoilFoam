@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX-OS                                                  |
+|   o   O   o      | Version: v2.4.0                                           |
+|    o     o       | Web:     http://www.engys.com                            |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class dictionary;
+    location system;
+    object controlDict;
+}
+
+    application simpleFoam;
+    startFrom latestTime;
+    startTime latestTime;
+    stopAt endTime;
+    endTime 9000;
+    deltaT 1;
+    writeControl timeStep;
+    writeInterval 500;
+    purgeWrite 5;
+    writeFormat ascii;
+    writePrecision 10;
+    writeCompression uncompressed;
+    timeFormat general;
+    timePrecision 6;
+    graphFormat raw;
+    runTimeModifiable true;
+
+functions
+{
+residuals
+{
+        //We look for all the fields
+        #includeEtc "caseDicts/postProcessing/numerical/residuals.cfg"
+        fields (p U nuTilda);
+}
+forceCoeffs
+{
+    // Mandatory entries
+    type            forceCoeffs;
+    libs            ("libforces.so");
+    patches         (Foil);
+
+
+    // Optional entries
+
+    // Field names
+    p               p;
+    U               U;
+    rho             rhoInf;
+    rhoInf      1;
+
+    // Reference pressure [Pa]
+    pRef            0;
+
+    // Include porosity effects?
+    porosity        no;
+
+    // Store and write volume field representations of forces and moments
+    writeFields     yes;
+
+    // Centre of rotation for moment calculations
+    CofR            (0.25 0 0);
+
+    // Lift direction
+    liftDir         (-0.32556815445715664 0.9455185755993168 0);
+    // Drag direction
+    dragDir         (0.9455185755993168 0.32556815445715664 0);
+    // Pitch axis
+    pitchAxis       (0 1 0);
+
+    // Freestream velocity magnitude [m/s]
+    magUInf         1;
+
+    // Reference length [m]
+    lRef            1;
+
+    // Reference area [m2]
+    Aref            1;
+
+    // Spatial data binning
+    // - extents given by the bounds of the input geometry
+    binData
+    {
+        nBin        20;
+        direction   (1 0 0);
+        cumulative  yes;
+    }
+}
+}

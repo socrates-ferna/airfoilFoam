@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX-OS                                                  |
+|   o   O   o      | Version: v2.4.0                                           |
+|    o     o       | Web:     http://www.engys.com                            |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class volScalarField;
+    location "0";
+    object nuTilda;
+}
+dimensions [ 0 2 -1 0 0 0 0 ];
+internalField uniform     4.62204E-05;
+ejection uniform    0.000077034;
+
+boundaryField
+{
+    Symmetry1
+    {
+        type empty;
+    }
+
+    Symmetry2
+    {
+        type empty;
+    }
+
+    FarField
+    {
+        type freestream;
+        freestreamValue $internalField;
+    }
+    Ejection_1
+    {
+        type fixedValue;
+        value $ejection;
+    }
+    Ejection_2
+    {
+        type fixedValue;
+        value $ejection;
+    }
+
+    Foil
+    {
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
+    }
+}
+

@@ -1,0 +1,67 @@
+#!/bin/sh
+source /opt/OpenFOAM-7/etc/bashrc
+rango=$(seq user_defined_range)
+
+#just in case we're working with decimals. Not the case for the moment bc I have to change range definition in Preparador.py
+#rango= $(echo $rango | tr , .) 
+
+#DEFINE THE RANGE WHEN RUNNING THE SETUP FILE IN AIRFOILAPPDIR
+rutres=../caso_gen/resultados
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+#-------------------------------------Preparamos la carpeta resultados-----------------------------------------
+CURRENT_DEF=$(echo -n `pwd` | tail -c 2)
+echo CURRENT_DEF is $CURRENT_DEF
+cd caso_gen
+
+mkdir resultados 
+cd resultados
+mkdir coeficientes paraview residuals yPlus pressure logs
+cd paraview
+mkdir -- $rango
+cd ../coeficientes
+
+touch polar_$CURRENT_DEF.dat
+echo "Alpha	# Time                  Cm                      Cd                      Cl                      " >> polar.dat 
+cd ../yPlus
+touch yPlus.dat
+echo "Alpha          # Time                  patch                      min                      max                  avg" >> yPlus.dat 
+cd ../../../
+
+for i in $rango;do
+printf "Simulando alfa"
+printf -- "$i"
+cd -- $i/
+
+runApplication decomposePar
+
+foamJob -p renumberMesh -overwrite   #parallel renumberMesh after decomposition
+
+runParallel `getApplication`
+
+runApplication reconstructPar -latestTime
+mv log.$(getApplication) "log.$(getApplication)_$FOIL_BASENAME${CURRENT_DEF}_a$i"
+
+$(getApplication) -postProcess -func yPlus > "log.yPlus_$FOIL_BASENAME${CURRENT_DEF}_a$i"
+$(getApplication) -postProcess -func sample > "log.sample_$FOIL_BASENAME${CURRENT_DEF}_a$i"
+lastiter=$(foamListTimes -latestTime)
+cp log.* $rutres/logs
+
+cd postProcessing/sample/$lastiter/
+sed -i -n '1,2d' p_foilpressure.raw
+sed -i -n 's/ /;/g' p_foilpressure.raw
+mv p_foilpressure.raw "p_$FOIL_BASENAME${CURRENT_DEF}_a$i.csv"
+cd ../../../
+cp -r `foamListTimes` $rutres/paraview/$i
+
+mv postProcessing/residuals/0/residuals.dat $rutres/residuals/residuals_$i.dat
+mv postProcessing/sample/$lastiter/"p_$FOIL_BASENAME${CURRENT_DEF}_a$i.csv" $rutres/pressure/
+coefs=$(tail -n 1 postProcessing/forceCoeffs/0/forceCoeffs.dat)
+y_alfa=$(tail -n 1 postProcessing/yPlus/$lastiter/yPlus_*.dat)
+
+echo "$i	$coefs" >> $rutres/coeficientes/polar.dat
+echo "$i        $y_alfa" >> $rutres/yPlus/yPlus.dat
+mv postProcessing/yPlus $rutres/yPlus/yPlus_$i
+mv postProcessing/forceCoeffs/0/forceCoeffs.dat $rutres/coeficientes/coeficientes_$i.dat
+cd ..
+rm -r -- $i
+done

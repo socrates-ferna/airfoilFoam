@@ -1,0 +1,11 @@
+#!/bin/bash
+cd ${0%/*} || exit 1
+#programa chapuceado para plotear los residuales si has ejecutado usando->
+#el run_for.sh o cualquiera de sus variantes
+rango1=$(seq 0 2 10)
+rango2=$(seq 11 19)
+for i in $rango1 $rango2;do
+	foamMonitor -l -i 1 -t $i resultados/residuals/residuals_$i.dat &
+done
+
+

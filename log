@@ -1,0 +1,12 @@
+
+[test and find why the time steps in paraview are not being shown correctly. Setup a short case and try out some command like renumberMesh before opening paraView that resets the field numbering]
+
+line "reconstructPar -latestTime" in run_anglerange is the cause of only reconstructing the last time
+
+I tried a renumberMesh and the data stayed some sort of permanent, didn't matter I changed the last iteration dir. Discarded for the moment, stick with simple flow visualization
+
+
+
+Bl_yplus folder added
+.gitignote to ignore gmsh
+

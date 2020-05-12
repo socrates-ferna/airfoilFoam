@@ -1,0 +1,7 @@
+#!/bin/bash
+. processinit
+. input
+. geogenerator
+. meshgenerator
+. setup
+. run

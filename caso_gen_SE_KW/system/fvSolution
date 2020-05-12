@@ -1,0 +1,282 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX-OS                                                  |
+|   o   O   o      | Version: v2.4.0                                           |
+|    o     o       | Web:     http://www.engys.com                            |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class dictionary;
+    location system;
+    object fvSolution;
+}
+
+    SIMPLE
+    {
+        nNonOrthogonalCorrectors 1;
+        pressureImplicitPorousity false;
+        pRefCell 0;
+        pRefValue 0;
+        residualControl
+        {
+            U 1.0E-6;
+            k 1e-7;
+            epsilon 1e-7;
+            omega 1e-7;
+            nuTilda 1.0E-4;
+            T 1e-7;
+            p_rgh 1e-7;
+            p 1.0E-5;
+        }
+
+    }
+    
+    potentialFlow
+    {
+        nNonOrthogonalCorrectors 10;
+    }
+
+    solvers
+    {
+        p
+        {
+            solver GAMG;
+            agglomerator faceAreaPair;
+            mergeLevels 1;
+            cacheAgglomeration true;
+            nCellsInCoarsestLevel 200;
+            tolerance 1e-7;
+            relTol 0.000001;
+            smoother GaussSeidel;
+            nPreSweeps 0;
+            nPostSweeps 2;
+            nFinestSweeps 2;
+            minIter 1;
+	    maxIter 200;
+        }
+
+        p_rgh
+        {
+            solver GAMG;
+            agglomerator faceAreaPair;
+            mergeLevels 1;
+            cacheAgglomeration true;
+            nCellsInCoarsestLevel 200;
+            tolerance 1e-7;
+            relTol 0.000001;
+            smoother GaussSeidel;
+            nPreSweeps 0;
+            nPostSweeps 2;
+            nFinestSweeps 2;
+            minIter 1;
+        }
+
+        f
+        {
+            solver GAMG;
+            agglomerator faceAreaPair;
+            mergeLevels 1;
+            cacheAgglomeration true;
+            nCellsInCoarsestLevel 200;
+            tolerance 1e-7;
+            relTol 0.01;
+            smoother GaussSeidel;
+            nPreSweeps 0;
+            nPostSweeps 2;
+            nFinestSweeps 2;
+            minIter 1;
+        }
+
+        U
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.001;
+            minIter 1;
+        }
+
+        k
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        kl
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        kt
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        q
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        zeta
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        epsilon
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        R
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        nuTilda
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.001;
+            minIter 1;
+        }
+
+        omega
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        h
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        T
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        v2
+        {
+            solver smoothSolver;
+            smoother GaussSeidel;
+            tolerance 1e-6;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        rho
+        {
+            solver PCG;
+            preconditioner DIC;
+            tolerance 0;
+            relTol 0;
+            minIter 1;
+        }
+
+        rhoFinal
+        {
+            solver PCG;
+            preconditioner DIC;
+            tolerance 0;
+            relTol 0;
+            minIter 1;
+        }
+
+        e
+        {
+            solver PBiCG;
+            preconditioner DILU;
+            tolerance 1e-06;
+            relTol 0.1;
+            minIter 1;
+        }
+
+        Phi
+        {
+            solver GAMG;
+            agglomerator faceAreaPair;
+            mergeLevels 1;
+            cacheAgglomeration true;
+            nCellsInCoarsestLevel 200;
+            tolerance 1e-7;
+            relTol 0.01;
+            smoother GaussSeidel;
+            nPreSweeps 0;
+            nPostSweeps 2;
+            nFinestSweeps 2;
+            minIter 1;
+        }
+
+    }
+
+    relaxationFactors
+    {
+        fields
+        {
+            p_rgh 0.3;
+            p 0.3;
+            rho 0.05;
+        }
+
+        equations
+        {
+            U 0.5;
+            h 0.5;
+            k 0.5;
+            kl 0.5;
+            kt 0.5;
+            q 0.5;
+            zeta 0.5;
+            epsilon 0.5;
+            R 0.5;
+            nuTilda 0.5;
+            omega 0.5;
+            T 0.5;
+            v2 0.5;
+            f 0.5;
+        }
+
+    }
