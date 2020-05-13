@@ -45,12 +45,12 @@ for i in range(len(angulos)):
     casoU=(str(ruta)+'/0/U')
     
     #determinamos nueva direccion
-    nueva_direccion_lift ="    liftDir         ("+str(-angcoefs[1][i])+" "+str(angcoefs[2][i])+" 0);";
-    nueva_direccion_drag ="    dragDir         ("+str(angcoefs[2][i])+" "+str(angcoefs[1][i])+" 0);";
+    nueva_direccion_lift ="    liftDir         ("+str(-angcoefs[1][i])+" 0 "+str(angcoefs[2][i])+");";
+    nueva_direccion_drag ="    dragDir         ("+str(angcoefs[2][i])+" 0 "+str(angcoefs[1][i])+");";
     #determinamos nueva velocidade
-    nuevo_internal_field ="internalField   uniform ("+str(vel[i][0])+" "+str(vel[i][1])+" 0);";
-    nuevo_freestreamValue ="freestreamValue   uniform ("+str(vel[i][0])+" "+str(vel[i][1])+" 0);";
-    nuevo_value=("value   uniform ("+str(vel[i][0])+" "+str(vel[i][1])+" 0);");
+    nuevo_internal_field ="internalField   uniform ("+str(vel[i][0])+" 0 "+str(vel[i][1])+");";
+    nuevo_freestreamValue ="freestreamValue   uniform ("+str(vel[i][0])+" 0 "+str(vel[i][1])+");";
+    nuevo_value=("value   uniform ("+str(vel[i][0])+" 0 "+str(vel[i][1])+");");
     
     #crear caso, creamos archivos particulares
     shutil.copytree('caso_gen', ruta)

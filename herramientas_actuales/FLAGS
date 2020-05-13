@@ -1,7 +1,17 @@
 
 CAMBIOS PREPARADOR.PY
 =====================
-velocidad=11.1 paper blowing 0018
+backup_Preparador.py
+velocidad=1
+ejes: XY
+
+Preparador_casos.py
+velocidad=1
+ejes: XZ
+
+Preparador_casos_XZ.py
+velocidad=1
+ejes: XZ
 
 Impresión del Lift Direction y Drag Direction cambia. El plano es ahora el XZ.
 antes liftDir de alfa=0 (0 1 0) y ahora es (0 0 1)

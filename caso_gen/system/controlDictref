@@ -18,7 +18,7 @@ FoamFile
     startFrom latestTime;
     startTime latestTime;
     stopAt endTime;
-    endTime 9000;
+    endTime 4000;
     deltaT 1;
     writeControl timeStep;
     writeInterval 500;

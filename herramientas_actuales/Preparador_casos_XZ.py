@@ -17,7 +17,7 @@ angulos = list(range(userdefrange));
 #definir vector direcciones
 cosenos= [ cos(angulos[i]*pi/180) for i in range(len(angulos))];
 senos= [ sin(angulos[i]*pi/180) for i in range(len(angulos))];
-velocidad=11.1;
+velocidad=1;
 angcoefs=[angulos[:],senos[:],cosenos[:]];
 
 #Definir vector velocidades

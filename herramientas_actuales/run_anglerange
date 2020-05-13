@@ -20,7 +20,7 @@ cd paraview
 mkdir -- $rango
 cd ../coeficientes
 
-touch polar_$CURRENT_DEF.dat
+touch polar.dat
 echo "Alpha	# Time                  Cm                      Cd                      Cl                      " >> polar.dat 
 cd ../yPlus
 touch yPlus.dat
@@ -33,28 +33,28 @@ printf -- "$i"
 cd -- $i/
 
 runApplication decomposePar
-
-foamJob -p renumberMesh -overwrite   #parallel renumberMesh after decomposition
-
+foamJob -s -p renumberMesh -overwrite
 runParallel `getApplication`
 
-runApplication reconstructPar -latestTime
+runApplication reconstructPar
+simpleFoamResidual
 mv log.$(getApplication) "log.$(getApplication)_$FOIL_BASENAME${CURRENT_DEF}_a$i"
 
 $(getApplication) -postProcess -func yPlus > "log.yPlus_$FOIL_BASENAME${CURRENT_DEF}_a$i"
 $(getApplication) -postProcess -func sample > "log.sample_$FOIL_BASENAME${CURRENT_DEF}_a$i"
 lastiter=$(foamListTimes -latestTime)
+echo "last iteration is: $lastiter"
 cp log.* $rutres/logs
 
 cd postProcessing/sample/$lastiter/
-sed -i -n '1,2d' p_foilpressure.raw
-sed -i -n 's/ /;/g' p_foilpressure.raw
+sed -i '1,2d' p_foilpressure.raw
+sed -i 's/ /;/g' p_foilpressure.raw
 mv p_foilpressure.raw "p_$FOIL_BASENAME${CURRENT_DEF}_a$i.csv"
 cd ../../../
-cp -r `foamListTimes` $rutres/paraview/$i
+cp -r `foamListTimes -withZero` $rutres/paraview/$i
 
 mv postProcessing/residuals/0/residuals.dat $rutres/residuals/residuals_$i.dat
-mv postProcessing/sample/$lastiter/"p_$FOIL_BASENAME${CURRENT_DEF}_a$i.csv" $rutres/pressure/
+mv postProcessing/sample/$lastiter/p_$FOIL_BASENAME${CURRENT_DEF}_a$i.csv $rutres/pressure/
 coefs=$(tail -n 1 postProcessing/forceCoeffs/0/forceCoeffs.dat)
 y_alfa=$(tail -n 1 postProcessing/yPlus/$lastiter/yPlus_*.dat)
 

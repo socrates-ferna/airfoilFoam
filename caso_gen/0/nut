@@ -29,8 +29,8 @@ boundaryField
 
     Farfield
     {
-        type fixedValue;
-        value $internalField;
+        type freestream;
+        freestreamValue $internalField;
     }
 
     Foil
