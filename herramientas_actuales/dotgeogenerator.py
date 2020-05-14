@@ -8,6 +8,8 @@ Created on Mon Nov 25 08:25:17 2019
 import numpy as np
 import matplotlib.pyplot as plt
 from math import sin, cos, pi
+import sys
+sys.path.append('../')
 
 ###################################################################################################################################
 
@@ -487,13 +489,16 @@ ficherofin.write("Surface(35) = {35};" + '\n' )
 ###########################################################################################
 
 #y+ hallado con la calculadora online
-sumat, y, indice = 0, 0.00008066009333146975, 0
+sumat = 0
+firstCellHeight = 8.100222980308526e-05 
+current_yPlus = 30
+indice = 0
 #ratio de crecimiento escogido por nosotros
 RT = 1.1
 vector= []
 
 while sumat<=R:
-    sumat += y*RT**indice
+    sumat += firstCellHeight*RT**indice
     indice= indice+1
     vector.append(sumat) 
 

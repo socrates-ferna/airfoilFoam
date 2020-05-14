@@ -483,13 +483,15 @@ ficherofin.write("Surface(35) = {35};" + '\n' )
 ###########################################################################################
 
 #y+ hallado con la calculadora online
-sumat, y, indice = 0, 0.00016641005886756873, 0
+sumat = 0
+firstCellHeight = 8.100222980308526e-05 
+indice = 0
 #ratio de crecimiento escogido por nosotros
 RT = 1.1
 vector= []
 
 while sumat<=R:
-    sumat += y*RT**indice
+    sumat += firstCellHeight*RT**indice
     indice= indice+1
     vector.append(sumat) 
 
@@ -509,64 +511,3 @@ ficherofin.write("Transfinite Line{"+str(-E2)+","+str(E3)+","+str(-E2e)+","+str(
 
 # airfoil
 ficherofin.write("Transfinite Line{"+str(sp1)+","+str(sp1e)+"} = "+str(60)+" Using Progression 1.04;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(-C5)+","+str(-C5e)+"} = "+str(60)+" Using Progression 1.05;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(sp2)+","+str(sp2e)+"} = "+str(50)+" Using Progression 0.97;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(-C4)+","+str(-C4e)+"} = "+str(50)+" Using Bump 5.0;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(sp3)+","+str(sp3e)+"} ="+str(80)+" Using Bump 3.0;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(C3)+","+str(C3e)+"} = "+str(80)+" Using Bump 0.1;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(sp4)+","+str(sp4e)+"} = "+str(80)+" Using Progression 1.0;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(C2)+","+str(C2e)+"} = "+str(80)+" Using Bump 1.0;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(sp5)+","+str(sp5e)+"} = "+str(80)+" Using Bump 0.13;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(C1)+","+str(C1e)+"} = "+str(80)+" Using Progression 1.03;" + '\n' )
-# wake
-#ficherofin.write("Transfinite Line{"+str(R6)+","+str(E1)+","+str(-E4)+","+str(R6e)+","+str(E1e)+","+str(-E4e)+"} = "+str(190)+" Using Progression 1.037;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(R6)+","+str(R6e)+"} = "+str(160)+" Using Progression 1.037;" + '\n' )
-ficherofin.write("Transfinite Line{"+str(E1)+","+str(-E4)+","+str(E1e)+","+str(-E4e)+"} = "+str(160)+" Using Progression 1.032;" + '\n' )
-
-'''
-ficherofin.write("Transfinite Line{1:56} = "+str(10)+" Using Progression 1.00;" + '\n' )
-'''
-########################################################################################### 
-#             Determinamos volumenes
-###########################################################################################
-
-ficherofin.write("Transfinite Surface{1:35};" + '\n' )
-ficherofin.write("Recombine Surface{1:35};" + '\n' )
-
-#No hace falta poner las caras en un orden concreto
-ficherofin.write("Surface loop(1) = {"+ str(1) + ","+ str(8)  + ","+ str(19) + ","+ str(20)+ ","+ str(30)+ ","+ str(32) + "};" + '\n' )
-ficherofin.write("Surface loop(2) = {"+ str(2) + ","+ str(9)  + ","+ str(18) + ","+ str(21)+ ","+ str(30)+ ","+ str(35) + "};" + '\n' )
-ficherofin.write("Surface loop(3) = {"+ str(3) + ","+ str(10)  + ","+ str(17) + ","+ str(22)+ ","+ str(29)+ ","+ str(35) + "};" + '\n' )
-ficherofin.write("Surface loop(4) = {"+ str(4) + ","+ str(11) + ","+ str(16) + ","+ str(23)+ ","+ str(29)+ ","+ str(31) + "};" + '\n' )
-ficherofin.write("Surface loop(5) = {"+ str(5) + ","+ str(12) + ","+ str(15) + ","+ str(24)+ ","+ str(31)+ ","+ str(33) + "};" + '\n' )
-ficherofin.write("Surface loop(6) = {"+ str(6) + ","+ str(13) + ","+ str(27) + ","+ str(28)+ ","+ str(33)+ ","+ str(34) + "};" + '\n' )
-ficherofin.write("Surface loop(7) = {"+ str(7) + ","+ str(14) + ","+ str(25) + ","+ str(26)+ ","+ str(32)+ ","+ str(34) + "};" + '\n' )
-
-ficherofin.write("Volume(1) = {1};" + '\n' )
-ficherofin.write("Volume(2) = {2};" + '\n' )
-ficherofin.write("Volume(3) = {3};" + '\n' )
-ficherofin.write("Volume(4) = {4};" + '\n' )
-ficherofin.write("Volume(5) = {5};" + '\n' )
-ficherofin.write("Volume(6) = {6};" + '\n' )
-ficherofin.write("Volume(7) = {7};" + '\n' )
-
-ficherofin.write("Transfinite Volume{1:7};" + '\n' )
-
-#NOTA!!!: EL GMSH4 NO VA CON EL OPENFOAM, HAY QUE USAR EL GMSH3 (SOLO CAMBIA 'Curve Loop' por 'Line Loop')
-
-
-ficherofin.write("Mesh 3;" + '\n' )
-
-###########################################################################################
-#             Determinamos nombres de las superficies y volúmenes físicos
-###########################################################################################
-
-ficherofin.write("Physical Surface('Farfield') = {20,21,22,23,24,25,26,27,28};" + '\n' )
-ficherofin.write("Physical Surface('Foil') = {15,16,17,18,19};" + '\n' )
-ficherofin.write("Physical Surface('Symmetry1') = {1,2,3,4,5,6,7};" + '\n' )
-ficherofin.write("Physical Surface('Symmetry2') = {8,9,10,11,12,13,14};" + '\n' )
-#
-ficherofin.write("Physical Volume('FLUID') = {1:7};" + '\n' )
-ficherofin.write("Save 'Def_45.msh';" + '\n' )
-
-ficherofin.close()

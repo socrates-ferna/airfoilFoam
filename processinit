@@ -11,3 +11,6 @@ export TOOLS_DIR=$AIRFOILAPPDIR/herramientas_actuales
 export GMSH_BIN_DIR=$THIRDPARTY_DIR/gmsh-3.0.0-Linux/bin/
 export AIRFOIL_FILES=$CURRENT_PROJECT/airfoil_files
 export BUFFER=$AIRFOILAPPDIR/buffer
+
+#Flags
+export yPlusupdate=True

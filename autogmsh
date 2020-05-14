@@ -1,8 +1,21 @@
 #!/bin/bash
 echo "You passed the following list : $morphing_positions"
 #we assume morphed airfoils have all the basename Def_n.csv where n is in our case the vertical deformation of a reference point in the morphing LE
-cd $AIRFOIL_FILES
+#y+ modification
+if [ "$yPlusupdate" == "True" ]
+then
+	echo "Current y+ in dotgeogenerator is:"
+	sed -n '/firstCellHeight/p' $TOOLS_DIR/dotgeogenerator.py
+	sed -n '/current_yPlus/p' $TOOLS_DIR/dotgeogenerator.py
+	echo "Do you want to update it? Press any key for yes or n for no"
+	read answer
+	if [ "$answer" != "n" ]
+	then
+		python yPlus_write.py
+	fi
+fi
 
+cd $AIRFOIL_FILES
 echo Importing airfoil files of $morphing_positions positions
 echo ""
 
