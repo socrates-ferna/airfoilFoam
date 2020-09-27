@@ -1,0 +1,12 @@
+set logscale y
+set title "Residuals"
+set ylabel 'Residual'
+set xlabel 'Iteration'
+plot "< cat log.simpleFoam | grep 'Solving for Ux' | cut -d' ' -f9 | tr -d ','" title 'Ux' with lines,\
+     "< cat log.simpleFoam | grep 'Solving for Uz' | cut -d' ' -f9 | tr -d ','" title 'Uy' with lines,\
+     "< cat log.simpleFoam | grep 'Solving for p' | sed '1d; n; d' | cut -d' ' -f9 | tr -d ','" title 'p' with lines
+
+unset logscale y
+pause 1
+#pause 1 es que recarga cada 10 s
+reread

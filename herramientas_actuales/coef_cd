@@ -1,0 +1,15 @@
+# Gnuplot script file for plotting data from file "forceCoeffs.dat"
+
+#set logscale y
+set title "Coeffs"
+set ylabel 'Coeffs'
+set xlabel 'Iteration'
+set yrange [0:0.01] 
+plot "< cat log | grep 'Cd' | cut -d' ' -f10 | tr -d ','" title 'Cd' with lines
+     #"< cat log | grep 'Cl ' | cut -d' ' -f10 | tr -d ','" title 'Cl' with lines
+     #"< cat log_rest | grep 'Solving for gammaInt' | cut -d' ' -f9 | tr -d ','" title 'gammaInt' with lines,\
+     #"< cat log_rest | grep 'Solving for ReThetat' | cut -d' ' -f9 | tr -d ','" title 'ReThetat' with lines
+unset logscale y
+pause 1
+#pause 1 es que recarga cada 10 s
+reread
