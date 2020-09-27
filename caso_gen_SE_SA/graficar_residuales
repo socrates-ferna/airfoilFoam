@@ -1,6 +1,0 @@
-rango=$(ls resultados/paraview/)
-for i in $rango;do
-	foamMonitor -l -i 1 -t $i resultados/residuals/residuals_$i.dat &
-done
-
-

@@ -3,7 +3,7 @@
 """
 Created on Mon Nov 25 08:25:17 2019
 
-@author: usuario
+@author: DAVID MANUEL DE ANDRÉS MARTÍN
 """
 import numpy as np
 import matplotlib.pyplot as plt

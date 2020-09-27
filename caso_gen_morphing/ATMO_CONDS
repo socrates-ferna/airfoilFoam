@@ -1,8 +1,0 @@
-rho=1.225 kg/m3
-c=3 m
-v=51 m/s
-mu=1.813e-5 (from engineering toolbox at p_atm & T=20ºC)
-Re_real=10.34e+6
-PARA LAS SIMULACIONES PONEMOS TODO=1 EXCEPTO LA VISCOSIDAD
-mu_cfd=1/Re=nu=9.671e-8
-

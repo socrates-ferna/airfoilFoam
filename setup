@@ -1,27 +1,9 @@
-#cd $CURRENT_PROJECT
-#mkdir $morphing_positions
-#for i in $morphing_positions; do
-#	if [ ! -d "$CURRENT_PROJECT/$i/caso_gen" ]; then
-#	cp -r $AIRFOILAPPDIR/caso_gen_$FOIL_BASENAME${i}/ $CURRENT_PROJECT/$i/caso_gen
-#	fi
-#done
-
-
-
-#Ojo a estas líneas, va cambiando el nombre de la carpeta que busca. Sólo compatible para casos en los que hacen falta carpetas de caso_gen distintas
-#Quizás con pyfoam o con herramientas rollo foamDictionary sería posible realizar los cambios dinámicamente (copiar el SA, hacer cambios y pegar KW)
-
 #!/bin/bash
 cp $TOOLS_DIR/Preparador_casos.py $CURRENT_PROJECT
 cp $TOOLS_DIR/run_anglerange $CURRENT_PROJECT
 cd $CURRENT_PROJECT
 
 sed -i "s/userdefrange/$anglerange/" Preparador_casos.py
-######PENDING we change the range format to match bash sequence definition with which we run all the AoA cases
-######IFS=',' read -r -a sequence <<< "$anglerange"
-######if [ "${array[@]}" == 2 ]
-######then
-######array[1]=array[1]-1
 
 sed -i "s/user_defined_range/$bashrange/" run_anglerange
 

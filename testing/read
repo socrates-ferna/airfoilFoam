@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo leo lista
-
-read deformadas
-
-echo escupo lista $deformadas

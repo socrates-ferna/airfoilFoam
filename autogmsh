@@ -32,8 +32,6 @@ cd $TOOLS_DIR
 cp dotgeogenerator.py $GMSH_BIN_DIR
 cd $GMSH_BIN_DIR
 
-# PENDIENTE LEER EL VALOR DE LA Y+, SUSTITUIRLO SI LO DESEO CON EL CÓDIGO DEL YPLUS echo Do you want to change the first layer cell height?
-
 echo "Generating .py files"
 for i in $morphing_positions;do
 	cp dotgeogenerator.py $FOIL_BASENAME${i}.py	

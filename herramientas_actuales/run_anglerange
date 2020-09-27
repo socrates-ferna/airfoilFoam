@@ -26,7 +26,7 @@ cd ../yPlus
 touch yPlus.dat
 echo "Alpha          # Time                  patch                      min                      max                  avg" >> yPlus.dat 
 cd ../../../
-
+#-------------------------------------Lanzamos la polar de simulaciones-----------------------------------------
 for i in $rango;do
 printf "Simulando alfa"
 printf -- "$i"

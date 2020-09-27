@@ -1,2 +1,0 @@
-- Para no multiplicar las herramientas en las carpetas de caso hay que buscar la forma de que el código busque el archivo en la carpeta herramientas y luego lo elimine o lo use desde allí
-
