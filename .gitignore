@@ -1,9 +1,5 @@
 ThirdParty/gmsh-3.0.0-Linux/bin/
 ThirdParty/gmsh-3.0.0-Linux/share/
-**/polyMesh
-caso_gen/
 .ipynb_checkpoints/
 __pycache__/
 testing/__pycache__/
-yPlus_write.ipynb
-testing/

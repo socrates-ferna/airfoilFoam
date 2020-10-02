@@ -1,11 +1,12 @@
-#!/bin/bash
-cd ${0%/*} || exit 1
+#!/bin/sh
+rm -r *[1-9]*
 echo Los AoA simulados son los siguientes:
 ls resultados/paraview/
 echo Elige el AoA que quieres visualizar:
 read AoA
 cp -r resultados/paraview/$AoA/*[1-9]* ./
-paraFoam -builtin
-#este programa necesita que se hayan guardado los resultados de las carpetas de tiempo de alguna forma estructurada
+simpleFoam -postProcess -func yPlus
+simpleFoamResidual
+paraFoam -builtin 
 #quedaría extenderlo a varios AoA a la vez y tener la opción de elegir uno o más
 
